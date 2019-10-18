@@ -7,7 +7,22 @@
 // multiplicative(39) ➞ 3
 /// Because 3 * 9 = 27, 2 * 7 = 14, 1 * 4 = 4 and 4 has only one digit.
 int multiplicative(int number) {
-  return null;
+  int count  = 0;
+
+  while(number>10){
+    //List stringNumberList = number.toString().split("");
+    //Had to create new numberList because forEach doesnt allow for the modification of the looping list
+    //elements are passed-as-reference instead of pass-by-value
+    //its the same with most other languages
+    //collections are passed as references and the arrays and lists are immutable
+
+    List<int>numberList = [];
+    number.toString().split("").forEach((stringNumber)=>numberList.add(int.parse(stringNumber)));
+    number = numberList.reduce((value,element)=> value*element);
+    count ++;
+  }
+
+  return count;
 }
 
 // Challenge 3
@@ -23,7 +38,27 @@ int multiplicative(int number) {
 
 //  wave(" ") ➞ []
 List<String> wave(String word) {
-  return null;
+
+  //instead of writing a different func(){}, if I implemented it in line 51 directly ,I'm getting empty list
+  //dont know why
+  List<String> newList = [];
+  int index = 0;
+  func(letter){
+    if(letter != " ") {
+      newList.add(word.substring(0, index) + letter.toUpperCase() + word.substring(index + 1));
+    };
+    index++;
+  }
+  word.split("").forEach((letter)=>func(letter));
+  return newList;
 }
 
-main() {}
+main() {
+  String word = "asdfgh";
+  print(word.substring(0,1));
+  print(multiplicative(39));
+  print(wave("edabit"));
+  print(wave("just do it"));
+
+
+}
